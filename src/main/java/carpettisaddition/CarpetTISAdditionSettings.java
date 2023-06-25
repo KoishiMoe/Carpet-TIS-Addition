@@ -30,7 +30,6 @@ import carpettisaddition.settings.Rule;
 import carpettisaddition.settings.validator.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
-import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
 import com.google.common.collect.Maps;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.NotNull;
@@ -700,29 +699,6 @@ public class CarpetTISAdditionSettings
 		public ValidateXPTrackingDistance()
 		{
 			super(0.0D, 128.0D);
-		}
-	}
-
-	/**
-	 * Do the same thing as rule updateSuppressionCrashFix from fabric carpet [1.4.49, 1.4.76]
-	 * TODO: find a way to make both rules work at the same time without breaking any functionalities: (@Redirect conflicts at {@link carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.MinecraftServerMixin})
-	 */
-	@Rule(categories = {TIS, BUGFIX}, validators = ValidateYeetUpdateSuppressionCrash.class)
-	public static boolean yeetUpdateSuppressionCrash = false;
-
-	private static class ValidateYeetUpdateSuppressionCrash extends AbstractCheckerValidator<Boolean>
-	{
-		@Override
-		protected boolean validateValue(Boolean value)
-		{
-			// it's disabling the rule, or tester allows
-			return !value || YeetUpdateSuppressionCrashTester.isAllowed();
-		}
-
-		@Override
-		public BaseText errorMessage(ValidationContext<Boolean> ctx)
-		{
-			return tr("yeetUpdateSuppressionCrash.message");
 		}
 	}
 
